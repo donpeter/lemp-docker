@@ -3,6 +3,7 @@ version: "3.2"
 services:
   web:
     image: nginx:alpine
+    restart: always
     ports:
         - "8080:80"
     volumes:
@@ -14,11 +15,30 @@ services:
       - php
 
   php:
-    image: php:7-fpm
+    image: php:7.2-fpm-alpine
+    restart: always
     volumes:
       - ./app:/app
+
+    depends_on:
+      - db
     networks:
       - lemp
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secrect
+      MYSQL_DATABASE: lemp-db
+      MYSQL_USER: lemp-user
+      MYSQL_PASSWORD: lemp-pass
+    ports:
+      - 3306:3306
+    networks:
+      - lemp
+    volumes:
+      - ./datadir:/var/lib/mysql
 
 networks:
   lemp:

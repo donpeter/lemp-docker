@@ -1,4 +1,4 @@
-<?php $title = "LEMP (Docker) - Code with Don Peter"?>
+<?php $title = "LEMP (Docker) - Code with Don Peter";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
