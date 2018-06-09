@@ -15,7 +15,9 @@ services:
       - php
 
   php:
-    image: php:7.2-fpm-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - ./app:/app
@@ -58,5 +60,3 @@ services:
 
 networks:
   lemp:
-
-    
