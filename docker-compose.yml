@@ -31,12 +31,10 @@ services:
     image: mariadb:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secrect
+      MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: lemp-db
       MYSQL_USER: lemp-user
       MYSQL_PASSWORD: lemp-pass
-    ports:
-      - 3306:3306
     networks:
       - lemp
     volumes:
@@ -47,7 +45,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: secrect
+      PMA_PASSWORD: secret
     restart: always
     depends_on:
       - db

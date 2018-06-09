@@ -6,10 +6,12 @@ $user = "lemp-user"; // Database user        -> Set as an enviroment variable in
 $pass = "lemp-pass"; // Database password    -> Set as an enviroment variable in the docker-compose file
 
 // Create connection
-$conn = new mysqli($host, $user, $pass, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+    $dbh = null;
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
 }
 ?>
 <!DOCTYPE html>
@@ -27,5 +29,7 @@ if ($conn->connect_error) {
     <h1><?= $title?></h1>
     <p>This page is been server by Nginx in a docker container </p>
     <?php echo "According to PHP today's date and time is <strong>" . date("D jS M, Y h:i:sa")."</strong>"?>
+    <br>
+    <h1> Database Connected!!!
 </body>
 </html>

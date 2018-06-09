@@ -11,10 +11,12 @@ RUN set -ex; \
         libpng-dev \
         libwebp-dev \
         libxpm-dev \
+        curl \
+        curl-dev \
     ; \
     \
     docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-webp-dir=/usr --with-png-dir=/usr --with-xpm-dir=/usr; \
-    docker-php-ext-install bz2 gd mysqli opcache zip;
+    docker-php-ext-install bz2 gd mysqli pdo pdo_mysql curl opcache zip;
 
 EXPOSE 9000
 CMD ["php-fpm"]
