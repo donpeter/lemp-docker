@@ -8,5 +8,19 @@ services:
     volumes:
         - ./app:/app
         - ./site.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - lemp
+    depends_on:
+      - php
+
+  php:
+    image: php:7-fpm
+    volumes:
+      - ./app:/app
+    networks:
+      - lemp
+
+networks:
+  lemp:
 
     
