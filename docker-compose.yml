@@ -1,7 +1,7 @@
 version: "3.2"
 
 services:
-  web:
+  nginx:
     image: nginx:alpine
     restart: always
     ports:
@@ -15,19 +15,16 @@ services:
       - php
 
   php:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: patunalu/php-fpm:latest
     restart: always
     volumes:
       - ./app:/app
-
     depends_on:
-      - db
+      - mysql
     networks:
       - lemp
 
-  db:
+  mysql:
     image: mariadb:latest
     restart: always
     environment:
@@ -43,12 +40,12 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      PMA_HOST: db
+      PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: secret
     restart: always
     depends_on:
-      - db
+      - mysql
     ports:
       - 8081:80
     volumes:
